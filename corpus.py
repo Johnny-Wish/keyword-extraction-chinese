@@ -5,7 +5,7 @@ from gensim.corpora import Dictionary
 from gensim.models import TfidfModel
 
 DEFAULT_ALLOWED_EXTENSIONS = ['txt']
-DEFAULT_CORPUS_PATH = "dataset/corpus"
+DEFAULT_CORPUS_PATH = os.path.join("dataset", "corpus")
 
 
 class Corpus:

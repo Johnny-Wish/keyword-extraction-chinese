@@ -1,6 +1,6 @@
 import os
 
-DEFAULT_STOPWORDS_PATH = "dataset/stopwords.txt"
+DEFAULT_STOPWORDS_PATH = os.path.join("dataset", "stopwords.txt")
 
 
 class Stopwords:
