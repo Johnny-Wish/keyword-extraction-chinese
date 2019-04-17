@@ -21,36 +21,39 @@ class Corpus:
         self.documents = [Document(os.path.join(path, f), stopwords=stopwords, puncts=puncts) for f in filenames]
         self.tokens = [doc.tokens for doc in self.documents]
         self.spaced = [doc.spaced for doc in self.documents]
-        self.ids = None
-        self.bow = None
-        self.tfidf_model = None
-        self.tfidf_score = None
-        self.tfidf_keywords = None
-        self.spans = None
-        self.tfidf_span_score = None
-        self.tfidf_span_keywords = None
         self.dictionary = Dictionary(self.tokens)
-        self.set_ids()
-        self.set_bow()
-        self.set_tfidf_model()
-        self.set_tfidf_score()
-        self.set_spans()
-        self.set_tfidf_span_score()
+        self.ids = ...
+        self.bow = ...
+        self.tfidf_model = ...
+        self.tfidf_score = ...
+        self.tfidf_keywords = ...
+        self.spans = ...
+        self.tfidf_span_score = ...
+        self.tfidf_span_keywords = ...
+        self.textrank_keywords = ...
 
-    def set_ids(self):
+        # setup the model
+        self._set_ids()
+        self._set_bow()
+        self._set_tfidf_model()
+        self._set_tfidf_score()
+        self._set_spans()
+        self._set_tfidf_span_score()
+
+    def _set_ids(self):
         for document in self.documents:
             document.set_ids(self.dictionary)
         self.ids = [doc.ids for doc in self.documents]
 
-    def set_bow(self):
+    def _set_bow(self):
         for document in self.documents:
             document.set_bow(self.dictionary)
         self.bow = [doc.bow for doc in self.documents]
 
-    def set_tfidf_model(self):
+    def _set_tfidf_model(self):
         self.tfidf_model = TfidfModel(self.bow, dictionary=self.dictionary)
 
-    def set_tfidf_score(self):
+    def _set_tfidf_score(self):
         for document in self.documents:
             document.set_tfidf_score(self.tfidf_model)
         self.tfidf_score = [doc.tfidf_score for doc in self.documents]
@@ -60,12 +63,12 @@ class Corpus:
             document.set_tfidf_keywords(n=n, dictionary=self.dictionary if lookup else None)
         self.tfidf_keywords = [doc.tfidf_keywords for doc in self.documents]
 
-    def set_spans(self):
+    def _set_spans(self):
         for document in self.documents:
             document.set_spans()
         self.spans = [doc.spans for doc in self.documents]
 
-    def set_tfidf_span_score(self):
+    def _set_tfidf_span_score(self):
         for document in self.documents:
             document.set_tfidf_span_score()
         self.tfidf_span_score = [doc.tfidf_span_score for doc in self.documents]
