@@ -33,13 +33,18 @@ class Document:
     def set_tfidf_score(self, model: TfidfModel):
         self.tfidf_score = list(model[self.bow])
 
-    def set_tfidf_keywords(self, n=5, dictionary: Dictionary = None):
-        sorted_pairs = sorted(self.tfidf_score, key=lambda p: p[1], reverse=True)
+    @staticmethod
+    def get_keyword_by_score(id_score_pair, n=5, dictionary=None, larger_is_better=True):
+        sorted_pairs = sorted(id_score_pair, key=lambda p: p[1], reverse=larger_is_better)
         n = min(len(sorted_pairs), n)  # in case bow contains less than n words
         if dictionary is None:
-            self.tfidf_keywords = [id for id, score in sorted_pairs[:n]]
+            return [id for id, score in sorted_pairs[:n]]
         else:
-            self.tfidf_keywords = [dictionary[id] for id, score in sorted_pairs[:n]]
+            return [dictionary[id] for id, score in sorted_pairs[:n]]
+
+    def set_tfidf_keywords(self, n=5, dictionary: Dictionary = None):
+        self.tfidf_keywords = \
+            Document.get_keyword_by_score(self.tfidf_score, n=n, dictionary=dictionary, larger_is_better=True)
 
     def set_spans(self):
         first_pos = {}
