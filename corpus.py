@@ -3,10 +3,6 @@ from document import Document
 from stopwords import DEFAULT_STOPWORDS
 from gensim.corpora import Dictionary
 from gensim.models import TfidfModel
-import numpy as np
-import pandas as pd
-import nltk
-import jieba
 
 DEFAULT_ALLOWED_EXTENSIONS = ['txt']
 DEFAULT_CORPUS_PATH = "dataset/corpus"
