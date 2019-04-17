@@ -1,6 +1,7 @@
 import os
 import jieba
 from gensim.corpora import Dictionary
+from gensim.models import TfidfModel
 from stopwords import Stopwords
 
 
@@ -27,6 +28,17 @@ class Document:
 
     def set_bow(self, dictionary: Dictionary):
         self.bow = dictionary.doc2bow(self.tokens)
+
+    def set_tfidf_score(self, model: TfidfModel):
+        self.tfidf_score = list(model[self.bow])
+
+    def set_tfidf_keywords(self, n=5, dictionary: Dictionary = None):
+        sorted_pairs = sorted(self.tfidf_score, key=lambda p: p[1], reverse=True)
+        n = min(len(sorted_pairs), n)  # in case bow contains less than n words
+        if dictionary is None:
+            self.tfidf_keywords = [id for id, score in sorted_pairs[:n]]
+        else:
+            self.tfidf_keywords = [dictionary[id] for id, score in sorted_pairs[:n]]
 
     def __len__(self):
         return len(self.tokens)

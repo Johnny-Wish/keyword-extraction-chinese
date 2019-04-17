@@ -2,6 +2,7 @@ import os
 from document import Document
 from stopwords import DEFAULT_STOPWORDS
 from gensim.corpora import Dictionary
+from gensim.models import TfidfModel
 import numpy as np
 import pandas as pd
 import nltk
@@ -21,9 +22,14 @@ class Corpus:
         self.tokens = [doc.tokens for doc in self.documents]
         self.ids = None
         self.bow = None
+        self.tfidf_model = None
+        self.tfidf_score = None
+        self.tfidf_keywords = None
         self.dictionary = Dictionary(self.tokens)
         self.set_ids()
         self.set_bow()
+        self.set_tfidf_model()
+        self.set_tfidf_score()
 
     def set_ids(self):
         for document in self.documents:
@@ -34,6 +40,19 @@ class Corpus:
         for document in self.documents:
             document.set_bow(self.dictionary)
         self.bow = [doc.bow for doc in self.documents]
+
+    def set_tfidf_model(self):
+        self.tfidf_model = TfidfModel(self.bow, dictionary=self.dictionary)
+
+    def set_tfidf_score(self):
+        for document in self.documents:
+            document.set_tfidf_score(self.tfidf_model)
+        self.tfidf_score = [doc.tfidf_score for doc in self.documents]
+
+    def set_tfidf_keywords(self, n=5, lookup=False):
+        for document in self.documents:
+            document.set_tfidf_keywords(n=n, dictionary=self.dictionary if lookup else None)
+        self.tfidf_keywords = [doc.tfidf_keywords for doc in self.documents]
 
 
 if __name__ == '__main__':
