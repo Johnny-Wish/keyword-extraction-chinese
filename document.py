@@ -22,7 +22,7 @@ class Document:
         self.tokens = [word for word in words if word not in skipped]
         self.ids = None
 
-    def token2id(self, dictionary: Dictionary):
+    def set_ids(self, dictionary: Dictionary):
         self.ids = [dictionary.token2id[token] for token in self.tokens]
 
     def __len__(self):

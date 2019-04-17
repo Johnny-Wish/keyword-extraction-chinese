@@ -21,11 +21,11 @@ class Corpus:
         self.tokens = [doc.tokens for doc in self.documents]
         self.ids = None
         self.dictionary = Dictionary(self.tokens)
-        self.token2id()
+        self.set_ids()
 
-    def token2id(self):
+    def set_ids(self):
         for document in self.documents:
-            document.token2id(self.dictionary)
+            document.set_ids(self.dictionary)
         self.ids = [doc.ids for doc in self.documents]
 
 
