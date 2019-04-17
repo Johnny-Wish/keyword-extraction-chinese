@@ -10,3 +10,11 @@ class Stopwords:
 
         with open(path) as f:
             self.words = f.read().split()
+
+
+try:
+    DEFAULT_STOPWORDS = Stopwords().words
+except Exception as e:
+    print(e)
+    print("WARNING: DEFAULT_STOPWORDS fall back to empty")
+    DEFAULT_STOPWORDS = []
