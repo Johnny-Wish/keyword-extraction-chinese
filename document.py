@@ -1,5 +1,6 @@
 import os
 import jieba
+from gensim.corpora import Dictionary
 from stopwords import Stopwords
 
 
@@ -19,14 +20,16 @@ class Document:
         words = list(jieba.lcut(raw_text))
 
         self.tokens = [word for word in words if word not in skipped]
+        self.ids = None
+
+    def token2id(self, dictionary: Dictionary):
+        self.ids = [dictionary.token2id[token] for token in self.tokens]
+
+    def __len__(self):
+        return len(self.tokens)
 
     def __str__(self):
         return "Document object with tokens {}".format(self.tokens.__str__())
 
     def __repr__(self):
         return "<{}>".format(self.__str__())
-
-
-if __name__ == '__main__':
-    stopwords = Stopwords().words
-    document = Document("dataset/corpus/doc1.txt", stopwords=stopwords)
