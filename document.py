@@ -25,6 +25,9 @@ class Document:
     def set_ids(self, dictionary: Dictionary):
         self.ids = [dictionary.token2id[token] for token in self.tokens]
 
+    def set_bow(self, dictionary: Dictionary):
+        self.bow = dictionary.doc2bow(self.tokens)
+
     def __len__(self):
         return len(self.tokens)
 

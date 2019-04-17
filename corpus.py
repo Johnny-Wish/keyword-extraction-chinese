@@ -20,13 +20,20 @@ class Corpus:
         self.documents = [Document(os.path.join(path, f), stopwords=stopwords, puncts=puncts) for f in filenames]
         self.tokens = [doc.tokens for doc in self.documents]
         self.ids = None
+        self.bow = None
         self.dictionary = Dictionary(self.tokens)
         self.set_ids()
+        self.set_bow()
 
     def set_ids(self):
         for document in self.documents:
             document.set_ids(self.dictionary)
         self.ids = [doc.ids for doc in self.documents]
+
+    def set_bow(self):
+        for document in self.documents:
+            document.set_bow(self.dictionary)
+        self.bow = [doc.bow for doc in self.documents]
 
 
 if __name__ == '__main__':
