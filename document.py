@@ -2,6 +2,7 @@ import os
 import jieba
 from gensim.corpora import Dictionary
 from gensim.models import TfidfModel
+import math
 from stopwords import Stopwords
 
 
@@ -39,6 +40,21 @@ class Document:
             self.tfidf_keywords = [id for id, score in sorted_pairs[:n]]
         else:
             self.tfidf_keywords = [dictionary[id] for id, score in sorted_pairs[:n]]
+
+    def set_spans(self):
+        first_pos = {}
+        spans = {}
+
+        for pos, id in enumerate(self.ids):  # time complexity = O(n)
+            if id not in first_pos:
+                first_pos[id] = pos
+            spans[id] = pos - first_pos[id]
+
+        self.spans = spans
+
+    def set_tfidf_span_score(self):
+        weighting = lambda id: math.log(1 + self.spans[id])
+        self.tfidf_span_score = [(id, score * weighting(id)) for id, score in self.tfidf_score]
 
     def __len__(self):
         return len(self.tokens)

@@ -25,11 +25,14 @@ class Corpus:
         self.tfidf_model = None
         self.tfidf_score = None
         self.tfidf_keywords = None
+        self.spans = None
+        self.tfidf_span_score = None
         self.dictionary = Dictionary(self.tokens)
         self.set_ids()
         self.set_bow()
         self.set_tfidf_model()
         self.set_tfidf_score()
+        self.set_spans()
 
     def set_ids(self):
         for document in self.documents:
@@ -53,6 +56,23 @@ class Corpus:
         for document in self.documents:
             document.set_tfidf_keywords(n=n, dictionary=self.dictionary if lookup else None)
         self.tfidf_keywords = [doc.tfidf_keywords for doc in self.documents]
+
+    def set_spans(self):
+        for document in self.documents:
+            document.set_spans()
+        self.spans = [doc.spans for doc in self.documents]
+
+    def set_tfidf_span_score(self):
+        for document in self.documents:
+            document.set_tfidf_span_score()
+        self.tfidf_span_score = [doc.tfidf_span_score for doc in self.documents]
+
+    def __len__(self):
+        return len(self.documents)
+
+    @property
+    def lengths(self):
+        return [len(doc) for doc in self.documents]
 
 
 if __name__ == '__main__':
