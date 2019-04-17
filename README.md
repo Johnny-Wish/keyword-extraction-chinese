@@ -41,6 +41,8 @@ The program should run fine on MacOS, Linux and other *nix platforms.
 
 In case the program is run a Windows machine, or any other system that uses a path separator other than the forward slash `/`, please change the path constants accordingly.
 
+If any other error occurs, please [open an Issue](https://github.com/Johnny-Wish/keyword-extraction-chinese/issues/new) along with detailed description of the error. It is recommended to include descriptions on how to reproduce the error, and the printed error message.
+
 ### Demo Output
 
 ```
