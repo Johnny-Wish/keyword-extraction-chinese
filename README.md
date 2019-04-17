@@ -1,5 +1,7 @@
 # Keyword Extraction Implementation for Chinese Corpuses
 
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+
 ## Description
 
 This is a simple implementation of keyword extraction / text summarization algorithms for Chinese corpuses.
