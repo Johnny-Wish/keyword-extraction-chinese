@@ -61,6 +61,10 @@ class Document:
         weighting = lambda id: math.log(1 + self.spans[id])
         self.tfidf_span_score = [(id, score * weighting(id)) for id, score in self.tfidf_score]
 
+    def set_tfidf_span_keywords(self, n=5, dictionary: Dictionary = None):
+        self.tfidf_span_keywords = \
+            Document.get_keyword_by_score(self.tfidf_span_score, n=n, dictionary=dictionary, larger_is_better=True)
+
     def __len__(self):
         return len(self.tokens)
 
