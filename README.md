@@ -19,7 +19,7 @@ In the following are recommended (but not necessarily required) dependencies and
 
 1. Python interpreter `python` >= 3.6
 2. Python package `gensim` >= 3.4.0
-3. Python pacakge `jieba` >=0.39
+3. Python package `jieba` >=0.39
 
 ## Instructions
 
@@ -43,7 +43,7 @@ The program should run fine on MacOS, Linux and other *nix platforms.
 
 In case the program is run a Windows machine, or any other system that uses a path separator other than the forward slash `/`, please change the path constants accordingly.
 
-If any other error occurs, please [open an Issue](https://github.com/Johnny-Wish/keyword-extraction-chinese/issues/new) along with detailed description of the error. It is recommended to include descriptions on how to reproduce the error, and the printed error message.
+If any other error occurs, please [open an Issue](https://github.com/Johnny-Wish/keyword-extraction-chinese/issues/new) along with detailed description of the error. It is recommended to include the printed error message and descriptions on how to reproduce the error.
 
 ### Demo Output
 
