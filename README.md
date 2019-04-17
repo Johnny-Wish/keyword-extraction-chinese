@@ -31,7 +31,7 @@ If more data (documents) are needed, place each document under `dataset/corpus`.
 
 ### Run
 
-To run a test, first `cd` to the project directory and run
+To run a test, first `cd` to the project directory and run the following command:
 
 ```bash
 python corpus.py
