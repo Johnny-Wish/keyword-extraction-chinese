@@ -20,6 +20,7 @@ class Corpus:
         filenames = [f for f in os.listdir(path) if "." in f and f.rsplit(".")[-1] in extensions]
         self.documents = [Document(os.path.join(path, f), stopwords=stopwords, puncts=puncts) for f in filenames]
         self.tokens = [doc.tokens for doc in self.documents]
+        self.spaced = [doc.spaced for doc in self.documents]
         self.ids = None
         self.bow = None
         self.tfidf_model = None
@@ -74,6 +75,11 @@ class Corpus:
             document.set_tfidf_span_keywords(n=n, dictionary=self.dictionary if lookup else None)
         self.tfidf_span_keywords = [doc.tfidf_span_keywords for doc in self.documents]
 
+    def set_textrank_keywords(self, p=0.2):
+        for document in self.documents:
+            document.set_textrank_keywods(p=p)
+        self.textrank_keywords = [doc.textrank_keywords for doc in self.documents]
+
     def __len__(self):
         return len(self.documents)
 
@@ -83,9 +89,23 @@ class Corpus:
 
 
 if __name__ == '__main__':
+    def print_keywords(keywords):
+        for idx, kws in enumerate(keywords):
+            print("In article {}, keywords are: ".format(idx + 1), ", ".join(kws))
+
+
     corpus = Corpus(DEFAULT_CORPUS_PATH, stopwords=DEFAULT_STOPWORDS)
     corpus.set_tfidf_keywords(lookup=True)
-    corpus.set_tfidf_span_keywords(lookup=True)
+    print("Using tf-idf score:")
+    print_keywords(corpus.tfidf_keywords)
+    print()
 
-    print(corpus.tfidf_keywords)
-    print(corpus.tfidf_span_keywords)
+    corpus.set_tfidf_span_keywords(lookup=True)
+    print("Using tf-idf score with span:")
+    print_keywords(corpus.tfidf_span_keywords)
+    print()
+
+    corpus.set_textrank_keywords()
+    print("Using text rank:")
+    print_keywords(corpus.textrank_keywords)
+    print()

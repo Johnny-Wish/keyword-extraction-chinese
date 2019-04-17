@@ -1,9 +1,9 @@
 import os
 import jieba
+import math
 from gensim.corpora import Dictionary
 from gensim.models import TfidfModel
-import math
-from stopwords import Stopwords
+from gensim.summarization.summarizer import summarize
 
 
 class Document:
@@ -20,6 +20,7 @@ class Document:
         with open(path) as f:
             raw_text = f.read()
         words = list(jieba.lcut(raw_text))
+        self.spaced = " ".join(words)
 
         self.tokens = [word for word in words if word not in skipped]
         self.ids = None
@@ -64,6 +65,9 @@ class Document:
     def set_tfidf_span_keywords(self, n=5, dictionary: Dictionary = None):
         self.tfidf_span_keywords = \
             Document.get_keyword_by_score(self.tfidf_span_score, n=n, dictionary=dictionary, larger_is_better=True)
+
+    def set_textrank_keywods(self, p=0.2):
+        self.textrank_keywords = summarize(self.spaced, ratio=p, split=True)
 
     def __len__(self):
         return len(self.tokens)
