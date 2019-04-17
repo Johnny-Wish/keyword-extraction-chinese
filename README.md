@@ -2,7 +2,14 @@
 
 ## Description
 
-This is a simple implementation of keyword extraction / text summarization algorithm for Chinese corpuses.
+This is a simple implementation of keyword extraction / text summarization algorithms for Chinese corpuses.
+Implemented algorithms are:
+
+- (Keyword Extraction) TF-IDF
+
+- (Keyword Extraction) TF-IDF with word span information 
+
+- (Text Summarization) Textrank 
 
 ## Instructions
 
@@ -16,9 +23,9 @@ python corpus.py
 
 ### Data
 
-There have been 3 demo documents under the directory `dataset/corpus`, which are used for debugging.
+There are 3 demo documents under the directory `dataset/corpus`, which have been used for debugging.
 
-If more data (documents) are needed, place each document under `dataset/corpus`. Make sure all documents are encoded in `UTF-8` format and has a `.txt` extension.
+If more data (documents) are needed, place each document under `dataset/corpus`. Make sure each documents is encoded in `UTF-8` format (rather than `GBK`/`GB18030`) and has a `.txt` extension.
 
 ### Platform
 
