@@ -85,8 +85,3 @@ class Document:
 
     def __repr__(self):
         return "<{}>".format(self.__str__())
-
-
-if __name__ == '__main__':
-    document = Document("dataset/corpus/doc1.txt")
-    document.set_textrank_keywords()
