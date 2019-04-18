@@ -4,14 +4,14 @@
 
 ## Description
 
-This is a simple implementation of keyword extraction / text summarization algorithms for Chinese corpuses.
+This is a simple implementation of keyword extraction algorithms for Chinese corpuses.
 Implemented algorithms are:
 
-- (Keyword Extraction) TF-IDF
+- TF-IDF
 
-- (Keyword Extraction) TF-IDF with word span information 
+- TF-IDF with word span information 
 
-- (Text Summarization) Textrank 
+- Textrank 
 
 ## Dependencies
 
@@ -50,7 +50,7 @@ If any other error occurs, please [open an Issue](https://github.com/Johnny-Wish
 ```
 Building prefix dict from the default dictionary ...
 Loading model from cache /var/folders/jr/qgh_hd1945bb_g0k8fwy_gn00000gp/T/jieba.cache
-Loading model cost 0.999 seconds.
+Loading model cost 0.796 seconds.
 Prefix dict has been built succesfully.
 Using tf-idf score:
 In article 1, keywords are:  有赞, 时间, 想, 规定, 工作
@@ -63,9 +63,8 @@ In article 2, keywords are:  利益, 精神, 明星, 高大, 未来
 In article 3, keywords are:  工作, 互联网, 选择, 公司, 经济
 
 Using text rank:
-In article 1, keywords are:  
-In article 2, keywords are:  不得不 说 ， 这碗 由 明星 企业家 精心 烹制 的 鸡汤 虽然 看上去 很 高大 上 ， 但 明显 有毒 ， 劳动者 很难 笑纳 。 还 需要 警惕 的 是 ， 这种 毒 鸡汤 论调 无异于 对 奋斗 精神 的 解构 ， 对 建设 法治 社会 的 消解 ， 它 一再 被 端出来 ， 将 对 弘扬 奋斗 精神 的 时代 主旋律 构成 干扰 ， 有 思想 上 造成 混乱 的 危险 。 
-In article 3, keywords are:  
-
+In article 1, keywords are:  劳动法第三十六条
+In article 2, keywords are:  劳动者, 心甘情愿, 忘我工作, 现身说法, 负面效应
+In article 3, keywords are:  工作制, 涂脂抹粉
 ```
 
