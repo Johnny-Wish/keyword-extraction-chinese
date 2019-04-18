@@ -3,7 +3,7 @@ import jieba
 import math
 from gensim.corpora import Dictionary
 from gensim.models import TfidfModel
-from gensim.summarization.summarizer import summarize
+from gensim.summarization.keywords import keywords
 
 
 class Document:
@@ -66,8 +66,16 @@ class Document:
         self.tfidf_span_keywords = \
             Document.get_keyword_by_score(self.tfidf_span_score, n=n, dictionary=dictionary, larger_is_better=True)
 
-    def set_textrank_keywods(self, p=0.2):
-        self.textrank_keywords = summarize(self.spaced, ratio=p, split=True)
+    def set_textrank_keywords(self, n=5, ratio=1.0):
+        try:
+            kws = keywords(self.spaced, split=True, ratio=ratio, deacc=False)
+            kws = [kw.replace(" ", "") for kw in kws]
+            n = min(len(kws), n)
+            self.textrank_keywords = kws[:n]
+        except IndexError as e:
+            print(e)
+            print("setting textrank_keywords to empty")
+            self.textrank_keywords = []
 
     def __len__(self):
         return len(self.tokens)
@@ -77,3 +85,8 @@ class Document:
 
     def __repr__(self):
         return "<{}>".format(self.__str__())
+
+
+if __name__ == '__main__':
+    document = Document("dataset/corpus/doc1.txt")
+    document.set_textrank_keywords()

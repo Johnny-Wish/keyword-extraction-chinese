@@ -74,9 +74,9 @@ class Corpus:
             document.set_tfidf_span_keywords(n=n, dictionary=self.dictionary if lookup else None)
         self.tfidf_span_keywords = [doc.tfidf_span_keywords for doc in self.documents]
 
-    def set_textrank_keywords(self, p=0.2):
+    def set_textrank_keywords(self, n=5, ratio=1.0):
         for document in self.documents:
-            document.set_textrank_keywods(p=p)
+            document.set_textrank_keywords(n=n, ratio=ratio)
         self.textrank_keywords = [doc.textrank_keywords for doc in self.documents]
 
     def __len__(self):
