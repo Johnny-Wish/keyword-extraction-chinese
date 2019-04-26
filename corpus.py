@@ -5,16 +5,24 @@ from gensim.corpora import Dictionary
 from gensim.models import TfidfModel
 
 DEFAULT_ALLOWED_EXTENSIONS = ['txt']
-DEFAULT_CORPUS_PATH = os.path.join("dataset", "corpus")
+DEFAULT_CORPUS_PATH = os.path.join("dataset", "docs")
 
 
 class Corpus:
-    def __init__(self, path, extensions=DEFAULT_ALLOWED_EXTENSIONS, stopwords=None, puncts=None):
-        if not os.path.isdir(path):
-            raise IOError("{} is not a directory".format(path))
+    def __init__(self, dir='', filenames=None, extensions=DEFAULT_ALLOWED_EXTENSIONS, stopwords=None, puncts=None):
+        """
+        :param dir: directory containing .txt files used as corpus
+        :param filenames: ordered list of file paths, used together with`dir`
+        :param extensions: legal extensions of documents, used to automatically fetch documents
+        :param stopwords: list of stopwords
+        :param puncts: list of punctuations
+        """
+        if filenames is None:  # auto-detect document files
+            if not (isinstance(dir, str) and os.path.isdir(dir)):
+                raise IOError("{} is not a directory".format(dir))
+            filenames = [f for f in os.listdir(dir) if "." in f and f.rsplit(".")[-1] in extensions]
 
-        filenames = [f for f in os.listdir(path) if "." in f and f.rsplit(".")[-1] in extensions]
-        self.documents = [Document(os.path.join(path, f), stopwords=stopwords, puncts=puncts) for f in filenames]
+        self.documents = [Document(os.path.join(dir, f), stopwords=stopwords, puncts=puncts) for f in filenames]
         self.tokens = [doc.tokens for doc in self.documents]
         self.spaced = [doc.spaced for doc in self.documents]
         self.dictionary = Dictionary(self.tokens)
