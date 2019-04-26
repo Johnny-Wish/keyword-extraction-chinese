@@ -72,7 +72,7 @@ class Document:
             kws = [kw.replace(" ", "") for kw in kws]
             n = min(len(kws), n)
             self.textrank_keywords = kws[:n]
-        except IndexError as e:
+        except (IndexError, ZeroDivisionError) as e:
             print(e)
             print("setting textrank_keywords to empty")
             self.textrank_keywords = []
