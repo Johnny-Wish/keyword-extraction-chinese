@@ -25,16 +25,16 @@ In the following are recommended (but not necessarily required) dependencies and
 
 ### Data
 
-There are 3 demo documents under the directory `dataset/corpus`, which have been used for debugging.
+There are 20 demo documents along with keywords under the directory `dataset/corpus-with-keywords`, which have been used for debugging.
 
-If more data (documents) are needed, place each document under `dataset/corpus`. Make sure each documents is encoded in `UTF-8` format (rather than `GBK`/`GB18030`) and has a `.txt` extension.
+If more data (documents and keywords) are needed, place each document under `dataset/corpus-with-keywords/docs` and  `dataset/corpus-with-keywords/keywords` . Make sure each documents is encoded in `UTF-8` format (rather than `GBK`/`GB18030`) and has a `.txt` extension.
 
 ### Run
 
 To run a test, first `cd` to the project directory and run the following command:
 
 ```bash
-python corpus.py
+python main.py
 ```
 
 ### Platform
@@ -45,26 +45,15 @@ In case the program is run a Windows machine, or any other system that uses a pa
 
 If any other error occurs, please [open an Issue](https://github.com/Johnny-Wish/keyword-extraction-chinese/issues/new) along with detailed description of the error. It is recommended to include the printed error message and descriptions on how to reproduce the error.
 
+### Performance Summary
+
+```
+tfidf: precision=0.35820895522430385, recall=0.35820895522430385, f1-score=0.35820895522430385
+tfidf with span: precision=0.3432835820900201, recall=0.3432835820900201, f1-score=0.3432835820900201
+textrank: precision=0.15000000000116664, recall=0.13432835821004677, f1-score=0.14173228346569533
+```
+
 ### Demo Output
 
-```
-Building prefix dict from the default dictionary ...
-Loading model from cache /var/folders/jr/qgh_hd1945bb_g0k8fwy_gn00000gp/T/jieba.cache
-Loading model cost 0.796 seconds.
-Prefix dict has been built succesfully.
-Using tf-idf score:
-In article 1, keywords are:  有赞, 时间, 想, 规定, 工作
-In article 2, keywords are:  利益, 精神, 明星, 高大, 未来
-In article 3, keywords are:  工作, 一边, 互联网, 成为, 生活
-
-Using tf-idf score with span:
-In article 1, keywords are:  有赞, 想, 时间, 工作, 规定
-In article 2, keywords are:  利益, 精神, 明星, 高大, 未来
-In article 3, keywords are:  工作, 互联网, 选择, 公司, 经济
-
-Using text rank:
-In article 1, keywords are:  劳动法第三十六条
-In article 2, keywords are:  劳动者, 心甘情愿, 忘我工作, 现身说法, 负面效应
-In article 3, keywords are:  工作制, 涂脂抹粉
-```
+For a demo output, check out [this file](demo-output.md).
 
