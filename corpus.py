@@ -93,26 +93,3 @@ class Corpus:
     @property
     def lengths(self):
         return [len(doc) for doc in self.documents]
-
-
-if __name__ == '__main__':
-    def print_keywords(keywords):
-        for idx, kws in enumerate(keywords):
-            print("In article {}, keywords are: ".format(idx + 1), ", ".join(kws))
-
-
-    corpus = Corpus(DEFAULT_CORPUS_PATH, stopwords=DEFAULT_STOPWORDS)
-    corpus.set_tfidf_keywords(lookup=True)
-    print("Using tf-idf score:")
-    print_keywords(corpus.tfidf_keywords)
-    print()
-
-    corpus.set_tfidf_span_keywords(lookup=True)
-    print("Using tf-idf score with span:")
-    print_keywords(corpus.tfidf_span_keywords)
-    print()
-
-    corpus.set_textrank_keywords()
-    print("Using text rank:")
-    print_keywords(corpus.textrank_keywords)
-    print()
