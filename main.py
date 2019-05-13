@@ -10,8 +10,11 @@ def display_predicted_keywords(keywords):
 def compute_scores(keywords_true, keywords_pred, adjust_length=True):
     TP = TN = FP = FN = 1e-10  # to avoid division by zero in extreme cases
     for kws_true, kws_pred in zip(keywords_true, keywords_pred):
-        if adjust_length:
+        if isinstance(adjust_length, bool) and adjust_length:
             length = min(len(kws_pred), len(kws_true))
+            kws_pred = kws_pred[:length]
+        elif isinstance(adjust_length, int) and adjust_length > 1:
+            length = min(len(kws_pred), adjust_length)
             kws_pred = kws_pred[:length]
 
         for kw in kws_pred:
