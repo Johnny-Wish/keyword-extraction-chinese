@@ -7,10 +7,10 @@ def display_predicted_keywords(keywords):
         print("In article {}, keywords are: ".format(idx + 1), ", ".join(kws))
 
 
-def compute_scores(keywords_true, keywords_pred, adjust_length=True):
+def compute_scores(keywords_true, keywords_pred, adjust_length="auto"):
     TP = TN = FP = FN = 1e-10  # to avoid division by zero in extreme cases
     for kws_true, kws_pred in zip(keywords_true, keywords_pred):
-        if isinstance(adjust_length, bool) and adjust_length:
+        if adjust_length == "auto":
             length = min(len(kws_pred), len(kws_true))
             kws_pred = kws_pred[:length]
         elif isinstance(adjust_length, int) and adjust_length > 1:
@@ -51,5 +51,6 @@ if __name__ == '__main__':
     }
 
     for method, pred in predictions.items():
-        print("{}: precision={}, recall={}, f1-score={}".format(method, *compute_scores(kw_corpus.keywords, pred)))
+        print("{}: precision={}, recall={}, f1-score={}".format(method, *compute_scores(kw_corpus.keywords, pred,
+                                                                                        adjust_length=4)))
         display_predicted_keywords(pred)
