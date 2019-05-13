@@ -35,8 +35,9 @@ class Document:
         self.tfidf_score = list(model[self.bow])
 
     @staticmethod
-    def get_keyword_by_score(id_score_pair, n=5, dictionary=None, larger_is_better=True):
-        sorted_pairs = sorted(id_score_pair, key=lambda p: p[1], reverse=larger_is_better)
+    def get_keyword_by_score(id_score_pair, n=5, dictionary=None, larger_is_better=True, min_chars_count=1):
+        filtered_pairs = filter(lambda pair: len(dictionary[pair[0]]) >= min_chars_count, id_score_pair)
+        sorted_pairs = sorted(filtered_pairs, key=lambda p: p[1], reverse=larger_is_better)
         n = min(len(sorted_pairs), n)  # in case bow contains less than n words
         if dictionary is None:
             return [id for id, score in sorted_pairs[:n]]
@@ -64,7 +65,8 @@ class Document:
 
     def set_tfidf_span_keywords(self, n=5, dictionary: Dictionary = None):
         self.tfidf_span_keywords = \
-            Document.get_keyword_by_score(self.tfidf_span_score, n=n, dictionary=dictionary, larger_is_better=True)
+            Document.get_keyword_by_score(self.tfidf_span_score, n=n, dictionary=dictionary, larger_is_better=True,
+                                          min_chars_count=2)
 
     def set_textrank_keywords(self, n=5, ratio=1.0):
         try:
